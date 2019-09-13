@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.lambdaschool.sprintandroidoopchallenge.R
-import com.lambdaschool.sprintandroidoopchallenge.model.AgeOfEmpiresApiObject
+import com.lambdaschool.sprintandroidoopchallenge.model.AgeOfEmpires
+import com.lambdaschool.sprintandroidoopchallenge.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.activity_item_detail.*
+import kotlinx.android.synthetic.main.item_detail.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 
 /**
@@ -22,7 +24,8 @@ class ItemDetailFragment : Fragment() {
     /**
      * The dummy content this fragment is presenting.
      */
-    private var item: AgeOfEmpiresApiObject? = null
+    private var item: AgeOfEmpires? = null
+    private var viewModel = ViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +35,8 @@ class ItemDetailFragment : Fragment() {
                 // Load the dummy content specified by the fragment
                 // arguments. In a real-world scenario, use a Loader
                 // to load content from a content provider.
-                item = it.getSerializable(ARG_ITEM_ID) as AgeOfEmpiresApiObject
-                activity?.toolbar_layout?.title = item?.name ?: ""
+                item = viewModel.ITEM_MAP[it.getSerializable(ARG_ITEM_ID)]
+                activity?.toolbar_layout?.title = item?.name
             }
         }
     }
@@ -44,34 +47,35 @@ class ItemDetailFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.item_detail, container, false)
 
-        rootView.btn_toast.setOnClickListener {
-            responseObject?.provideInfoForObject(item?.info() ?: "No info")
-        }
-
         // Show the dummy content as text in a TextView.
         item?.let {
-            rootView.item_text.text = it.name
+            rootView.item_text.text = it.info()
+            rootView.btn_favorite.text = it.isFavorite.toString()
+        }
+
+        rootView.btn_favorite.setOnClickListener {
+            viewModel.clickListener(btn_favorite, item, fragmentListener)
         }
 
         return rootView
     }
 
-    interface DetailResponse {
-        fun provideInfoForObject(info: String)
+    interface FragmentListener {
+        fun showToast(ageOfEmpires: AgeOfEmpires)
     }
 
-    private var responseObject: DetailResponse? = null
+    private var fragmentListener: FragmentListener? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is DetailResponse) {
-            responseObject = context
+        if (context is FragmentListener) {
+            fragmentListener = context
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        responseObject = null
+        fragmentListener = null
     }
 
     companion object {

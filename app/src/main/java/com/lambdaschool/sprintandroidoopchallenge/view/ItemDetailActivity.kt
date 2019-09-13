@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.Toast
 import com.lambdaschool.sprintandroidoopchallenge.R
+import com.lambdaschool.sprintandroidoopchallenge.model.AgeOfEmpires
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**
@@ -15,9 +16,11 @@ import kotlinx.android.synthetic.main.activity_item_detail.*
  * item details are presented side-by-side with a list of items
  * in a [ItemListActivity].
  */
-class ItemDetailActivity : AppCompatActivity(), ItemDetailFragment.DetailResponse {
-    override fun provideInfoForObject(info: String) {
-        Toast.makeText(this, "Item Detail Activity: $info", Toast.LENGTH_SHORT).show()
+class ItemDetailActivity : AppCompatActivity(), ItemDetailFragment.FragmentListener {
+
+    override fun showToast(ageOfEmpires: AgeOfEmpires) {
+        val favorite = if (ageOfEmpires.isFavorite) "is a favorite" else "is not a favorite"
+        Toast.makeText(this, "${ageOfEmpires.name} $favorite", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

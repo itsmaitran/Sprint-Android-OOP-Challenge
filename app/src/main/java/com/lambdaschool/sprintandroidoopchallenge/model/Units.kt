@@ -1,14 +1,15 @@
 package com.lambdaschool.sprintandroidoopchallenge.model
 
-import com.google.gson.annotations.SerializedName
-
-data class Units (
-    val range: Int,
+class Units (
+    name: String,
+    expansion: String,
+    isFavorite: Boolean,
+    val range: String,
     val attack: Int,
     val armor: String,
     val accuracy: String
 
-) : AgeOfEmpiresApiObject() {
+) : AgeOfEmpires(name, expansion, isFavorite) {
 
     override fun info(): String = "Range: $range\nAttack: $attack\nArmor: $armor\nAccuracy: $accuracy"
 
