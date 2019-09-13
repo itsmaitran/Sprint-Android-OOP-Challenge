@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import com.lambdaschool.sprintandroidoopchallenge.R
@@ -114,14 +115,27 @@ class ItemListActivity : AppCompatActivity(), ItemDetailFragment.FragmentListene
             with(holder.itemView) {
                 tag = ageOfEmpiresApiObject
                 setOnClickListener(onClickListener)
+
+                setEnterAnimation(holder.parentView, position)
             }
         }
 
         override fun getItemCount() = values.size
 
+        private fun setEnterAnimation(viewToAnimate: View, position: Int) {
+            if (position > lastPosition) {
+                val animation = AnimationUtils.loadAnimation(
+                    viewToAnimate.context, android.R.anim.slide_in_left
+                )
+                viewToAnimate.startAnimation(animation)
+                lastPosition = position
+            }
+        }
+
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nameView: TextView = view.id_text
             val contentView: TextView = view.content
+            val parentView: View = view.parent_view
         }
     }
 }

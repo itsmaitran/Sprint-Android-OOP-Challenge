@@ -13,7 +13,7 @@ class Technologies (
 
 ) : AgeOfEmpires(name, expansion, isFavorite) {
 
-    override fun info(): String = "Description: $description\nAge: $age\nBuild Time: $buildTime"
+    override fun info(): String = "Expansion: $expansion\nDescription: $description\nAge: $age\nBuild Time: $buildTime"
 
     override fun toString(): String {
         return "Name$name:\nDescription:$description\nExpansion: $expansion\nAge: $age"

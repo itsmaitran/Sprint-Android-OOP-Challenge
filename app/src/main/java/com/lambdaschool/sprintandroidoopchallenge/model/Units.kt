@@ -11,7 +11,7 @@ class Units (
 
 ) : AgeOfEmpires(name, expansion, isFavorite) {
 
-    override fun info(): String = "Range: $range\nAttack: $attack\nArmor: $armor\nAccuracy: $accuracy"
+    override fun info(): String = "Expansion: $expansion\nRange: $range\nAttack: $attack\nArmor: $armor\nAccuracy: $accuracy"
 
     override fun toString(): String {
         return "$name has a range of $range, an attack of $attack, an armor rating of $armor, and an accuracy of $accuracy."

@@ -11,7 +11,7 @@ class Civilizations (
 
 ) : AgeOfEmpires(name, expansion, isFavorite) {
 
-    override fun info(): String = "Name: $name\nExpansion: $expansion\nArmy Type: $armyType\nTeam Bonus: $teamBonus"
+    override fun info(): String = "Expansion: $expansion\nArmy Type: $armyType\nTeam Bonus: $teamBonus"
 
     override fun toString(): String {
         return "$name has an army type of $armyType and their team bonus would be $teamBonus."
