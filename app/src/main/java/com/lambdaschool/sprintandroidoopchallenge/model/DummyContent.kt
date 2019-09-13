@@ -1,4 +1,4 @@
-package com.lambdaschool.sprintandroidoopchallenge.dummy
+package com.lambdaschool.sprintandroidoopchallenge.model
 
 import java.util.ArrayList
 import java.util.HashMap

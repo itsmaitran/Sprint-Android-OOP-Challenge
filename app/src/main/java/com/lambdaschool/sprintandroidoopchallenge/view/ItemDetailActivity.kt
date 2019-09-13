@@ -1,10 +1,12 @@
-package com.lambdaschool.sprintandroidoopchallenge
+package com.lambdaschool.sprintandroidoopchallenge.view
 
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.Toast
+import com.lambdaschool.sprintandroidoopchallenge.R
 import kotlinx.android.synthetic.main.activity_item_detail.*
 
 /**
@@ -13,7 +15,10 @@ import kotlinx.android.synthetic.main.activity_item_detail.*
  * item details are presented side-by-side with a list of items
  * in a [ItemListActivity].
  */
-class ItemDetailActivity : AppCompatActivity() {
+class ItemDetailActivity : AppCompatActivity(), ItemDetailFragment.DetailResponse {
+    override fun provideInfoForObject(info: String) {
+        Toast.makeText(this, "Item Detail Activity: $info", Toast.LENGTH_SHORT).show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +47,9 @@ class ItemDetailActivity : AppCompatActivity() {
             // using a fragment transaction.
             val fragment = ItemDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putString(
+                    putSerializable(
                         ItemDetailFragment.ARG_ITEM_ID,
-                        intent.getStringExtra(ItemDetailFragment.ARG_ITEM_ID)
+                        intent.getSerializableExtra(ItemDetailFragment.ARG_ITEM_ID)
                     )
                 }
             }
